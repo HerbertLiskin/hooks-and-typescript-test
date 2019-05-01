@@ -13,6 +13,7 @@ const AppRoot: React.FC = () => {
   const [teamList, setTeamMember] = useState(defaultTeamList)
   const [alphabetOrder, setAlphabetOrder] = useState(true)
   const [sortValue, setSortValue] = useState('lastName')
+  const [onlyActive, setOnlyActive] = useState(false)
 
   useEffect(() => {
     const storageTeamList = localStorage.getItem('teamList')
@@ -89,6 +90,10 @@ const AppRoot: React.FC = () => {
     localStorage.setItem('teamList', JSON.stringify(teamList));
   }
 
+  const toggleActive = () => {
+    setOnlyActive(!onlyActive)
+  }
+
   return (
     <div className="App">
       <AddMemberForm addTeamMember={addTeamMember} />
@@ -107,9 +112,17 @@ const AppRoot: React.FC = () => {
         >
           Registration Date
         </span>
+        <br />
+        <br />
+        <span
+          onClick={toggleActive}
+        >
+          Only Active: {onlyActive ? 'Yes' : 'No'}
+        </span>
       </div>
       <TeamList
         teamList={teamList}
+        onlyActive={onlyActive}
         removeTeamMember={removeTeamMember}
       />
     </div>

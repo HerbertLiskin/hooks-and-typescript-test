@@ -4,8 +4,9 @@ import { TeamMemberModel } from '../../types'
 import './TeamList.css'
 
 interface Props {
-  removeTeamMember: (id: string | undefined) => void
-  teamList: TeamMemberModel[]
+  removeTeamMember: (id: string | undefined) => void,
+  teamList: TeamMemberModel[],
+  onlyActive: boolean
 }
 
 const TeamList: React.FC<Props> = (props) => {
@@ -20,6 +21,9 @@ const TeamList: React.FC<Props> = (props) => {
     <div>
       {
         props.teamList.map((member: TeamMemberModel) => {
+          if (props.onlyActive && !member.isActive)
+            return null
+
           return (
             <div className="teamMember" key={member.id}>
               <div className="fullName">
