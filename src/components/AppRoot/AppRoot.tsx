@@ -4,38 +4,47 @@ import uniqid from 'uniqid'
 import { TeamMemberModel, AddTeamMemberModel } from '../../types'
 
 import AddMemberForm from '../AddMemberForm/AddMemberForm'
+import TeamList from '../TeamList/TeamList'
 
 import './AppRoot.css'
 
 const AppRoot: React.FC = () => {
-  const initialState: TeamMemberModel[] = []
-  const [teamMembersList, setTeamMember] = useState(initialState)
+
+  const storageTeamList = localStorage.getItem('teamList')
+
+  const initialState: TeamMemberModel[] = storageTeamList !== null
+    ? JSON.parse(storageTeamList)
+    : []
+
+  const [teamList, setTeamMember] = useState(initialState)
 
   const addTeamMember = (teamMember: AddTeamMemberModel): void => {
+    const date: Date = new Date()
+
     const newTeamMember: TeamMemberModel = {
       ...teamMember,
       id: uniqid(),
-      registrationDate: new Date()
+      registrationDate: date.toUTCString()
     }
 
-    setTeamMember([...teamMembersList, newTeamMember])
+    const newTeamList = [...teamList, newTeamMember]
+
+    setTeamMember(newTeamList)
+    localStorage.setItem('teamList', JSON.stringify(newTeamList));
   }
 
-  const deleteTeamMember = (e: React.MouseEvent<HTMLButtonElement>): void => {
-    const memberId = (e.target as HTMLButtonElement).dataset.memberId
-    setTeamMember(teamMembersList.filter((member) => (member.id !== memberId)))
+  const removeTeamMember = (id: string | undefined): void => {
+    setTeamMember(teamList.filter((member) => (member.id !== id)))
   }
 
   return (
     <div className="App">
       <AddMemberForm addTeamMember={addTeamMember} />
-      {
-        teamMembersList.map((el: any) => {
-          return (
-            <div key={el.id}>{el.firstName} {el.id} <button data-member-id={el.id} onClick={deleteTeamMember}>delete</button></div>
-          )
-        })
-      }
+
+      <TeamList
+        teamList={teamList}
+        removeTeamMember={removeTeamMember}
+      />
     </div>
   );
 }

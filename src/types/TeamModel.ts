@@ -10,7 +10,7 @@ export interface AddTeamMemberModel {
 
 export interface TeamMemberModel extends AddTeamMemberModel {
     id: string;
-    registrationDate: Date;
+    registrationDate: string;
 }
 
 export namespace TeamMemberModel {
