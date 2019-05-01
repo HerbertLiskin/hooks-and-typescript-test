@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import uniqid from 'uniqid'
 
-import { TeamMemberModel, AddTeamMemberModel } from '../../types'
+import { TeamMemberModel } from '../../types'
 
 import AddMemberForm from '../AddMemberForm/AddMemberForm'
+import EditMemberForm from '../EditMemberForm/EditMemberForm'
+
 import TeamList from '../TeamList/TeamList'
 
 import './AppRoot.css'
 
 const AppRoot: React.FC = () => {
-  const defaultTeamList: TeamMemberModel[] | [] = []
+  const defaultTeamList: TeamMemberModel[] = []
   const [teamList, setTeamMember] = useState(defaultTeamList)
   const [alphabetOrder, setAlphabetOrder] = useState(true)
   const [sortValue, setSortValue] = useState('lastName')
   const [onlyActive, setOnlyActive] = useState(false)
+  const [editForm, setEditForm] = useState({})
 
   useEffect(() => {
     const storageTeamList = localStorage.getItem('teamList')
@@ -37,7 +40,7 @@ const AppRoot: React.FC = () => {
     setSortValue(initialSortValue)
   }, [])
 
-  const addTeamMember = (teamMember: AddTeamMemberModel): void => {
+  const addTeamMember = (teamMember: TeamMemberModel.AddTeamMemberModel): void => {
     const date: Date = new Date()
     const newTeamMember: TeamMemberModel = {
       ...teamMember,
@@ -47,6 +50,20 @@ const AppRoot: React.FC = () => {
     const newTeamList: TeamMemberModel[] = [...teamList, newTeamMember]
 
     sortBy({ sortTeamList: newTeamList })
+  }
+
+  const setCurrentTeamMember = (id: string | undefined): void => {
+    const currentTeamMemberId = teamList.findIndex((el) => (el.id === id))
+    setEditForm(teamList[currentTeamMemberId])
+    debugger
+  }
+
+  const updateTeamMember = (teamMember: TeamMemberModel): void => {
+    const newTeamList = teamList.map((member) => {
+      return member.id === teamMember.id ? teamMember : member
+    })
+    sortBy({ sortTeamList: newTeamList })
+    setEditForm({})
   }
 
   const removeTeamMember = (id: string | undefined): void => {
@@ -97,6 +114,11 @@ const AppRoot: React.FC = () => {
   return (
     <div className="App">
       <AddMemberForm addTeamMember={addTeamMember} />
+      <br /><br />
+      <EditMemberForm
+        currentTeamMember={editForm}
+        updateTeamMember={updateTeamMember}
+      />
       <div>Sort by:&nbsp;
         <span
           onClick={() => {
@@ -123,6 +145,7 @@ const AppRoot: React.FC = () => {
       <TeamList
         teamList={teamList}
         onlyActive={onlyActive}
+        setCurrentTeamMember={setCurrentTeamMember}
         removeTeamMember={removeTeamMember}
       />
     </div>

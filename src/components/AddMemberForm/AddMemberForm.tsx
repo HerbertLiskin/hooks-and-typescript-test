@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import './AddMemberForm.css'
-import { AddTeamMemberModel } from '../../types'
+import { TeamMemberModel } from '../../types'
 
 interface Props {
-  addTeamMember: (teamMember: AddTeamMemberModel) => void
+  addTeamMember: (teamMember: TeamMemberModel.AddTeamMemberModel) => void
 }
 
 const AddMemberForm: React.FC<Props> = (props) => {
-  const initialState: AddTeamMemberModel = {
+  const initialState: TeamMemberModel.AddTeamMemberModel = {
     login: '',
     password: '',
     firstName: '',
@@ -106,7 +106,7 @@ const AddMemberForm: React.FC<Props> = (props) => {
       </div>
       <button>Add member</button>
     </form>
-  );
+  )
 }
 
-export default AddMemberForm;
+export default AddMemberForm

@@ -4,12 +4,18 @@ import { TeamMemberModel } from '../../types'
 import './TeamList.css'
 
 interface Props {
+  setCurrentTeamMember: (id: string | undefined) => void,
   removeTeamMember: (id: string | undefined) => void,
   teamList: TeamMemberModel[],
   onlyActive: boolean
 }
 
 const TeamList: React.FC<Props> = (props) => {
+  const edit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault()
+    const memberId = (e.target as HTMLButtonElement).dataset.memberId
+    props.setCurrentTeamMember(memberId)
+  }
 
   const remove = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
@@ -44,12 +50,17 @@ const TeamList: React.FC<Props> = (props) => {
               <div className="isActive">
                 {member.isActive ? 'Yes' : 'No'}
               </div>
-
+              <button
+                data-member-id={member.id}
+                onClick={edit}
+              >
+                Edit
+              </button>
               <button
                 data-member-id={member.id}
                 onClick={remove}
               >
-                delete
+                Delete
               </button>
             </div>
           )
