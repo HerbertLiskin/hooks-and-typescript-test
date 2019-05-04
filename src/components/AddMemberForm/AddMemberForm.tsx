@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { FORMS_INPUTS, ROLE_MAP } from '../../helpers/objects'
 import Input from '../../UIKit/Input/Input'
 import Button from '../../UIKit/Button/Button'
@@ -79,12 +79,18 @@ const AddMemberForm: React.FC<Props> = (props) => {
                     </select>
                   )
                   : (
-                    <Input
-                      small
-                      left
-                      {...props}
-                      onChange={inputChange}
-                    />
+                    <Fragment>
+                      <Input
+                        small
+                        left
+                        {...props}
+                        onChange={inputChange}
+                      />
+                      {
+                        input.name === 'isActive' &&
+                          (<label>isActive</label>)
+                      }
+                    </Fragment>
                   )
               }
               <div className="error"></div>

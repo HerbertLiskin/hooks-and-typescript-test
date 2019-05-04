@@ -102,7 +102,7 @@ const AppRoot: React.FC = () => {
 
     localStorage.setItem('sortValue', JSON.stringify(currentSortValue));
     localStorage.setItem('alphabetOrder', JSON.stringify(currentAlphabetOrder));
-    localStorage.setItem('teamList', JSON.stringify(teamList));
+    localStorage.setItem('teamList', JSON.stringify(currentTeamList));
   }
 
   const toggleActive = () => {

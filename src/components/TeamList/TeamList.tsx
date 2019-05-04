@@ -42,6 +42,7 @@ const TeamList: React.FC<Props> = (props) => {
     props.sortBy({ name: fieldName })
   }
 
+  
   return props.teamList.length ? (
     <div>
       <Table>
@@ -65,6 +66,8 @@ const TeamList: React.FC<Props> = (props) => {
             props.teamList.map((member: TeamMemberModel) => {
               if (props.onlyActive && !member.isActive)
                 return null
+            
+              const isActiveClassName = `isActive ${member.isActive === true && 'active'}`
 
               return (
                 <Tr key={member.id}>
@@ -73,7 +76,7 @@ const TeamList: React.FC<Props> = (props) => {
                   <Td type="left">{ROLE_MAP[member.role]}</Td>
                   <Td type="small">{member.age}</Td>
                   <Td type="basis">{timestampToDate(member.registrationDate)}</Td>
-                  <Td type="small">{member.isActive ? 'Yes' : 'No'}</Td>
+                  <Td type="small" className={isActiveClassName}>{member.isActive ? 'Yes' : 'No'}</Td>
                   <Td type="right">
                     <button
                       data-member-id={member.id}
