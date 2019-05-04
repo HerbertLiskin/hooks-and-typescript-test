@@ -3,8 +3,8 @@ export const timestampToDate = (timestamp: number) => {
     const date = new Date(timestamp);
     const aaaa = date.getUTCFullYear()
 
-    let gg: string | number = date.getUTCDate()
-    let mm: string | number = (date.getUTCMonth() + 1)
+    let gg: string | number = date.getDate()
+    let mm: string | number = (date.getMonth() + 1)
 
     if (gg < 10)
         gg = '0' + gg.toString()
@@ -14,9 +14,9 @@ export const timestampToDate = (timestamp: number) => {
 
     const cur_day = aaaa + '-' + mm + '-' + gg;
 
-    let hours: string | number = date.getUTCHours()
-    let minutes: string | number = date.getUTCMinutes()
-    let seconds: string | number = date.getUTCSeconds()
+    let hours: string | number = date.getHours()
+    let minutes: string | number = date.getMinutes()
+    let seconds: string | number = date.getSeconds()
 
     if (hours < 10)
         hours = '0' + hours;
