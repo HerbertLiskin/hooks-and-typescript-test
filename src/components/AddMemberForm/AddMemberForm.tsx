@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
-import './AddMemberForm.css'
+import { FORMS_INPUTS, ROLE_MAP } from '../../helpers/objects'
+import Input from '../../UIKit/Input/Input'
+import Button from '../../UIKit/Button/Button'
+
 import { TeamMemberModel } from '../../types'
+
+import './AddMemberForm.css'
 
 interface Props {
   addTeamMember: (teamMember: TeamMemberModel.AddTeamMemberModel) => void
@@ -19,14 +24,14 @@ const AddMemberForm: React.FC<Props> = (props) => {
 
   const [teamMember, setTeamMember] = useState(initialState)
 
-  const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value, type, checked } = e.target
-    setTeamMember({ ...teamMember, [name]: type !== 'checkbox' ? value : checked })
-  }
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>): void => {
+    const { name, value, type } = e.target
 
-  const selectChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const { name, value } = e.target
-    setTeamMember({ ...teamMember, [name]: value })
+    const checked = e.target.type === 'checkbox'
+      ? (e.target as HTMLInputElement).checked
+      : null
+
+    setTeamMember({ ...teamMember, [name]: type !== 'checkbox' ? value : checked })
   }
 
   const addMember = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -36,75 +41,55 @@ const AddMemberForm: React.FC<Props> = (props) => {
   }
 
   return (
-    <form onSubmit={addMember}>
-      <div>
-        <label>Login</label>
-        <input
-          type="text"
-          name="login"
-          value={teamMember.login}
-          onChange={inputChange}
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="text"
-          name="password"
-          value={teamMember.password}
-          onChange={inputChange}
-        />
-      </div>
-      <div>
-        <label>Firts Name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={teamMember.firstName}
-          onChange={inputChange}
-        />
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={teamMember.lastName}
-          onChange={inputChange}
-        />
-      </div>
-      <div>
-        <label>Age</label>
-        <input
-          type="text"
-          name="age"
-          value={teamMember.age}
-          onChange={inputChange}
-        />
-      </div>
-      <div>
-        <label>Role</label>
-        <select
-          name="role"
-          value={teamMember.role}
-          onChange={selectChange}
-        >
-          <option value="1">Team Lead</option>
-          <option value="2">Back-end Developer</option>
-          <option value="3">Front-end Developer</option>
-          <option value="4">DB Developer</option>
-        </select>
-      </div>
-      <div>
-        <label>Active</label>
-        <input
-          type="checkbox"
-          name="isActive"
-          checked={teamMember.isActive}
-          onChange={inputChange}
-        />
-      </div>
-      <button>Add member</button>
+    <form className="form" onSubmit={addMember}>
+      {
+        FORMS_INPUTS.map((input) => {
+          let props: any = {
+            type: input.type,
+            name: input.name,
+            placeholder: input.label,
+            value: teamMember[input.name],
+          }
+
+          if (input.type === 'number') {
+            props.min = input.min
+            props.max = input.max
+          }
+
+          return (
+            <div className="formField" key={`add-form-${input.name}`}>
+              {
+                input.type === 'select'
+                  ? (
+                    <select>
+                      {
+                        input.options && input.options.map((option) => (
+                          <option
+                            key={`add-form-option-${input.name}-${option}`}
+                            value={option}>
+                            {ROLE_MAP[option]}
+                          </option>
+                        ))
+                      }
+                    </select>
+                  )
+                  : (
+                    <Input
+                      small
+                      left
+                      {...props}
+                      onChange={inputChange}
+                    />
+                  )
+              }
+              <div className="error"></div>
+            </div>
+          )
+        })
+      }
+      <Button fullWidth>
+        Add member
+      </Button>
     </form>
   )
 }

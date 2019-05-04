@@ -1,3 +1,16 @@
-.App {
-  text-align: center;
+.app {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.forms {
+  display: flex;
+}
+
+.forms > * {
+  width: 50%;
+}
+
+* {
+  box-sizing: border-box;
 }

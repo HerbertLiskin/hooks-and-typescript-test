@@ -55,7 +55,6 @@ const AppRoot: React.FC = () => {
   const setCurrentTeamMember = (id: string | undefined): void => {
     const currentTeamMemberId = teamList.findIndex((el) => (el.id === id))
     setEditForm(teamList[currentTeamMemberId])
-    debugger
   }
 
   const updateTeamMember = (teamMember: TeamMemberModel): void => {
@@ -112,42 +111,29 @@ const AppRoot: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <AddMemberForm addTeamMember={addTeamMember} />
-      <br /><br />
-      <EditMemberForm
-        currentTeamMember={editForm}
-        updateTeamMember={updateTeamMember}
-      />
-      <div>Sort by:&nbsp;
-        <span
-          onClick={() => {
-            sortBy({ name: 'lastName' })
-          }}
-        >
-          Last Name
-        </span>,&nbsp;
-        <span
-          onClick={() => {
-            sortBy({ name: 'registrationDate' })
-          }}
-        >
-          Registration Date
-        </span>
-        <br />
-        <br />
+    <div className="app">
+      <div className="layout">
+        <div className="forms">
+          <AddMemberForm addTeamMember={addTeamMember} />
+          <EditMemberForm
+            currentTeamMember={editForm}
+            updateTeamMember={updateTeamMember}
+          />
+        </div>
         <span
           onClick={toggleActive}
         >
           Only Active: {onlyActive ? 'Yes' : 'No'}
         </span>
+        <TeamList
+          teamList={teamList}
+          onlyActive={onlyActive}
+          setCurrentTeamMember={setCurrentTeamMember}
+          removeTeamMember={removeTeamMember}
+
+          sortBy={sortBy}
+        />
       </div>
-      <TeamList
-        teamList={teamList}
-        onlyActive={onlyActive}
-        setCurrentTeamMember={setCurrentTeamMember}
-        removeTeamMember={removeTeamMember}
-      />
     </div>
   );
 }

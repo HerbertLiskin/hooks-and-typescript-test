@@ -1,0 +1,14 @@
+.form {
+  margin: 0 10px;
+}
+
+.formField {
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.error {
+  font-size: 14px;
+  height: 14px;
+  color: red;
+}

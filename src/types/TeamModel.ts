@@ -7,6 +7,7 @@ export namespace TeamMemberModel {
         age: number;
         role: number;
         isActive: boolean;
+        [key: string]: any;
     }
 }
 
