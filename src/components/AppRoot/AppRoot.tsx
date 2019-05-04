@@ -41,11 +41,10 @@ const AppRoot: React.FC = () => {
   }, [])
 
   const addTeamMember = (teamMember: TeamMemberModel.AddTeamMemberModel): void => {
-    const date: Date = new Date()
     const newTeamMember: TeamMemberModel = {
       ...teamMember,
       id: uniqid(),
-      registrationDate: date.toUTCString()
+      registrationDate: Date.now()
     }
     const newTeamList: TeamMemberModel[] = [...teamList, newTeamMember]
 

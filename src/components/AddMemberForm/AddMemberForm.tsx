@@ -18,7 +18,7 @@ const AddMemberForm: React.FC<Props> = (props) => {
     firstName: '',
     lastName: '',
     age: 18,
-    role: 2,
+    role: 1,
     isActive: false,
   }
 
@@ -26,7 +26,6 @@ const AddMemberForm: React.FC<Props> = (props) => {
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>): void => {
     const { name, value, type } = e.target
-
     const checked = e.target.type === 'checkbox'
       ? (e.target as HTMLInputElement).checked
       : null
@@ -56,12 +55,18 @@ const AddMemberForm: React.FC<Props> = (props) => {
             props.max = input.max
           }
 
+          if (input.type !== 'checkbox') {
+            props.value = teamMember[input.name]
+          } else {
+            props.checked = teamMember[input.name]
+          }
+
           return (
             <div className="formField" key={`add-form-${input.name}`}>
               {
                 input.type === 'select'
                   ? (
-                    <select>
+                    <select name={input.name} value={teamMember.role} onChange={inputChange}>
                       {
                         input.options && input.options.map((option) => (
                           <option

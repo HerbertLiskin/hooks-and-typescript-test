@@ -2,6 +2,7 @@ import React from 'react'
 import { TeamMemberModel } from '../../types'
 import { Table, Tbody, Tr, Td, Thead } from '../../UIKit/Table/'
 import { ROLE_MAP } from '../../helpers/objects'
+import { timestampToDate } from '../../helpers/date'
 
 import './TeamList.css'
 
@@ -71,7 +72,7 @@ const TeamList: React.FC<Props> = (props) => {
                   <Td type="left">{member.login}</Td>
                   <Td type="left">{ROLE_MAP[member.role]}</Td>
                   <Td type="small">{member.age}</Td>
-                  <Td type="basis">{member.registrationDate}</Td>
+                  <Td type="basis">{timestampToDate(member.registrationDate)}</Td>
                   <Td type="small">{member.isActive ? 'Yes' : 'No'}</Td>
                   <Td type="right">
                     <button

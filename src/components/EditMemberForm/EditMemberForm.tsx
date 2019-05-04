@@ -53,17 +53,24 @@ const EditMemberForm: React.FC<Props> = (props) => {
               props.max = input.max
             }
 
+            if (input.type !== 'checkbox') {
+              props.value = teamMember[input.name]
+            } else {
+              props.checked = teamMember[input.name]
+            }
+
             return (
               <div className="formField" key={`add-form-${input.name}`}>
                 {
                   input.type === 'select'
                     ? (
-                      <select>
+                      <select name={input.name} value={teamMember.role} onChange={inputChange}>
                         {
                           input.options && input.options.map((option) => (
                             <option
                               key={`add-form-option-${input.name}-${option}`}
-                              value={option}>
+                              value={option}
+                            >
                               {ROLE_MAP[option]}
                             </option>
                           ))

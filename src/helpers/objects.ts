@@ -33,7 +33,7 @@ export const FORMS_INPUTS = [
     {
         name: 'role',
         type: 'select',
-        options: [1, 2, 3, 4],
+        options: ['1', '2', '3', '4'],
         label: 'Role',
     },
     {
