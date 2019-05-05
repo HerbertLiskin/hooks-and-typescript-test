@@ -125,11 +125,12 @@ const AppRoot: React.FC = () => {
           }
 
         </div>
-        <span
+        <div
           onClick={toggleActive}
+          className="onlyActive"
         >
-          Only Active: {onlyActive ? 'Yes' : 'No'}
-        </span>
+          Only Active: {onlyActive ? 'Yes' : 'No'} (click Me)
+        </div>
         <TeamList
           teamList={teamList}
           onlyActive={onlyActive}
