@@ -7,7 +7,7 @@ export default styled.thead`
   display: block;
   position: relative;
   z-index: 1;
-  background: #d3d1d1;
+  background: #ece8e8;
   border-bottom: 1px solid black;
 
   tr {

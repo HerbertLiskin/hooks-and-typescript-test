@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import uniqid from 'uniqid'
-
-import { TeamMemberModel } from '../../types'
+import { isEmpty } from '../../helpers/objects'
 
 import AddMemberForm from '../AddMemberForm/AddMemberForm'
 import EditMemberForm from '../EditMemberForm/EditMemberForm'
-
 import TeamList from '../TeamList/TeamList'
+
+import { TeamMemberModel } from '../../types'
 
 import './AppRoot.css'
 
@@ -114,10 +114,16 @@ const AppRoot: React.FC = () => {
       <div className="layout">
         <div className="forms">
           <AddMemberForm addTeamMember={addTeamMember} />
-          <EditMemberForm
-            currentTeamMember={editForm}
-            updateTeamMember={updateTeamMember}
-          />
+          {
+            !isEmpty(editForm) &&
+            (
+              <EditMemberForm
+                currentTeamMember={editForm}
+                updateTeamMember={updateTeamMember}
+              />
+            )
+          }
+
         </div>
         <span
           onClick={toggleActive}
@@ -129,7 +135,7 @@ const AppRoot: React.FC = () => {
           onlyActive={onlyActive}
           setCurrentTeamMember={setCurrentTeamMember}
           removeTeamMember={removeTeamMember}
-
+          sortValue={sortValue}
           sortBy={sortBy}
         />
       </div>

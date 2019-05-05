@@ -45,12 +45,12 @@ const center = (props: Tbody) => props.type === 'center' && css`
 
 const isHovering = (props: Tbody) => props.isHovering && css`
   :hover {
-    background: var(--background-button-active);
+    background: #d1d1f1;
   }
 `
 
 const isActive = (props: Tbody) => props.isActive && css`
-  background: var(--background-button-active);
+  background: #b1b2fd;
 `
 
 const header = (props: Tbody) => props.header && css`

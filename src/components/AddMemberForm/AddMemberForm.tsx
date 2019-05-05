@@ -1,5 +1,12 @@
 import React, { useState, Fragment } from 'react'
-import { FORMS_INPUTS, ROLE_MAP } from '../../helpers/objects'
+import {
+  isEmpty,
+  FORMS_INPUTS,
+  ROLE_MAP,
+} from '../../helpers/objects'
+
+import { formsValidation } from '../../helpers/validation'
+
 import Input from '../../UIKit/Input/Input'
 import Button from '../../UIKit/Button/Button'
 
@@ -12,7 +19,7 @@ interface Props {
 }
 
 const AddMemberForm: React.FC<Props> = (props) => {
-  const initialState: TeamMemberModel.AddTeamMemberModel = {
+  const initialMemberState: TeamMemberModel.AddTeamMemberModel = {
     login: '',
     password: '',
     firstName: '',
@@ -22,7 +29,16 @@ const AddMemberForm: React.FC<Props> = (props) => {
     isActive: false,
   }
 
-  const [teamMember, setTeamMember] = useState(initialState)
+  const initialFieldsErrors: TeamMemberModel.TeamMembersFieldsErrorsModel = {
+    login: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    age: '',
+  }
+
+  const [teamMember, setTeamMember] = useState(initialMemberState)
+  const [fieldsErrors, setFieldsErrors] = useState(initialFieldsErrors)
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>): void => {
     const { name, value, type } = e.target
@@ -36,7 +52,15 @@ const AddMemberForm: React.FC<Props> = (props) => {
   const addMember = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    props.addTeamMember(teamMember)
+    const err = formsValidation(teamMember)
+
+    if (isEmpty(err)) {
+      props.addTeamMember(teamMember)
+      setTeamMember(initialMemberState)
+      setFieldsErrors(initialFieldsErrors)
+    } else {
+      setFieldsErrors(err)
+    }
   }
 
   return (
@@ -93,7 +117,7 @@ const AddMemberForm: React.FC<Props> = (props) => {
                     </Fragment>
                   )
               }
-              <div className="error"></div>
+              <div className="error">{fieldsErrors[input.name]}</div>
             </div>
           )
         })

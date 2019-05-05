@@ -9,6 +9,14 @@ export namespace TeamMemberModel {
         isActive: boolean
         [key: string]: any
     }
+
+    export interface TeamMembersFieldsErrorsModel {
+        login: string
+        firstName: string
+        lastName: string
+        age: string
+        [key:string]: any
+    }
 }
 
 export interface TeamMemberModel extends TeamMemberModel.AddTeamMemberModel {
