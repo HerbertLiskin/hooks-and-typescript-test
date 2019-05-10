@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/hooks-and-typescript-test/static/css/main.a8fb4010.chunk.css",
+    "main.js": "/hooks-and-typescript-test/static/js/main.aa1a54c4.chunk.js",
+    "main.js.map": "/hooks-and-typescript-test/static/js/main.aa1a54c4.chunk.js.map",
+    "runtime~main.js": "/hooks-and-typescript-test/static/js/runtime~main.40fcd203.js",
+    "runtime~main.js.map": "/hooks-and-typescript-test/static/js/runtime~main.40fcd203.js.map",
+    "static/js/2.03aa08cb.chunk.js": "/hooks-and-typescript-test/static/js/2.03aa08cb.chunk.js",
+    "static/js/2.03aa08cb.chunk.js.map": "/hooks-and-typescript-test/static/js/2.03aa08cb.chunk.js.map",
+    "index.html": "/hooks-and-typescript-test/index.html",
+    "precache-manifest.a05013ea9fdc5837644929e8e62a7f2f.js": "/hooks-and-typescript-test/precache-manifest.a05013ea9fdc5837644929e8e62a7f2f.js",
+    "service-worker.js": "/hooks-and-typescript-test/service-worker.js",
+    "static/css/main.a8fb4010.chunk.css.map": "/hooks-and-typescript-test/static/css/main.a8fb4010.chunk.css.map",
+    "static/media/star.svg": "/hooks-and-typescript-test/static/media/star.c372e0c9.svg"
+  }
+}
