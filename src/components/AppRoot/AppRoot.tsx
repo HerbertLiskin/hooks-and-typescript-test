@@ -78,8 +78,7 @@ const AppRoot: React.FC = () => {
       obj.name === sortValue &&
       alphabetOrder === true
     )
-      ? false
-      : true
+    
     const currentTeamList: TeamMemberModel[] = obj.sortTeamList
       ? obj.sortTeamList
       : teamList
